@@ -18,12 +18,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Despesas Pessoais")),
-        body: Column(children: const [
-          SizedBox(
-              width: double.infinity,
-              child: Card(
-                  elevation: 5, color: Colors.blue, child: Text("Gráfico"))),
-          Card(child: Text("Lista de Transações"))
-        ]));
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              SizedBox(
+                  child: Card(
+                      elevation: 5,
+                      color: Colors.blue,
+                      child: Text("Gráfico"))),
+              Card(child: Text("Lista de Transações"))
+            ]));
   }
 }
