@@ -16,7 +16,7 @@ class ExpensesApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
-  final List<Transaction> transactions = [
+  final List<Transaction> _transactions = [
     Transaction(
         id: 't1',
         title: 'Novo Tênis de Corrida',
@@ -33,13 +33,16 @@ class MyHomePage extends StatelessWidget {
         body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                   child: Card(
                       elevation: 5,
                       color: Colors.blue,
                       child: Text("Gráfico"))),
-              Card(child: Text("Lista de Transações"))
+              Column(
+                  children: _transactions
+                      .map((Transaction t) => Card(child: Text(t.title!)))
+                      .toList())
             ]));
   }
 }
