@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         date: DateTime.now());
     transactions.add(transaction);
     setState(() {});
+    Navigator.pop(context);
   }
 
   showTransactionFormModal(BuildContext context) {
