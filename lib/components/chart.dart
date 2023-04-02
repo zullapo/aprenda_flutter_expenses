@@ -12,20 +12,32 @@ class Chart extends StatelessWidget {
     return List.generate(7, (index) {
       DateTime weekDay = DateTime.now().subtract(Duration(days: index));
       String dayLetter = DateFormat.E().format(weekDay)[0];
-      double transactionValue = recentTransactions
-          .map((Transaction value) => value.value)
-          .toList()
-          .reduce((double? value, double? element) => value! + element!)!;
-      return {"day": dayLetter, "value": transactionValue};
+      double sumTransactionValue = 0;
+      for (Transaction recentTransaction in recentTransactions) {
+        bool sameDay = recentTransaction.date?.day == weekDay.day;
+        bool sameMonth = recentTransaction.date?.month == weekDay.month;
+        bool sameYear = recentTransaction.date?.year == weekDay.year;
+
+        if (sameDay && sameMonth && sameYear) {
+          sumTransactionValue += recentTransaction.value!;
+        }
+      }
+      return {"day": dayLetter, "value": sumTransactionValue};
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      margin: const EdgeInsets.all(20),
-      child: Row(children: []),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 6,
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        child: Row(
+            children: groupedTransactions
+                .map((Map<String, Object> t) =>
+                    Text("${t['day']} : ${t['value']} "))
+                .toList()),
+      ),
     );
   }
 }
