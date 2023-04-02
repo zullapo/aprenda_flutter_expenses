@@ -40,13 +40,20 @@ class Chart extends StatelessWidget {
       child: Card(
         elevation: 6,
         margin: const EdgeInsets.all(20),
-        child: Row(
-            children: groupedTransactions
-                .map((Map<String, Object> t) => ChartBar(
-                    label: t['day'] as String,
-                    value: t['value'] as double,
-                    percentage: (t['value'] as double) / weekTotalValue))
-                .toList()),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: groupedTransactions
+                  .map((Map<String, Object> t) => Flexible(
+                        fit: FlexFit.tight,
+                        child: ChartBar(
+                            label: t['day'] as String,
+                            value: t['value'] as double,
+                            percentage: (t['value'] as double) / weekTotalValue),
+                      ))
+                  .toList()),
+        ),
       ),
     );
   }
