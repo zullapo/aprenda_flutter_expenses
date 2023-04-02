@@ -5,6 +5,8 @@ import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
+import 'components/chart.dart';
+
 void main() => runApp(const ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
@@ -43,7 +45,29 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
+    Transaction(
+        id: 't0',
+        title: 'Conta Antiga',
+        value: 400.00,
+        date: DateTime.now().subtract(const Duration(days: 33))),
+    Transaction(
+        id: 't1',
+        title: 'Novo Tênis de Corrida',
+        value: 310.76,
+        date: DateTime.now().subtract(const Duration(days: 3))),
+    Transaction(
+        id: 't2',
+        title: 'Conta de Luz',
+        value: 211.30,
+        date: DateTime.now().subtract(const Duration(days: 4))),
   ];
+
+  List<Transaction> get recentTransactions {
+    return transactions
+        .where((Transaction t) =>
+            t.date!.isAfter(DateTime.now().subtract(const Duration(days: 7))))
+        .toList();
+  }
 
   addTransaction(String title, double value) {
     Transaction transaction = Transaction(
@@ -77,9 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const SizedBox(
-                child: Card(
-                    elevation: 5, color: Colors.blue, child: Text("Gráfico"))),
+            SizedBox(child: Chart(recentTransactions: recentTransactions)),
             TransactionList(transactions: transactions)
           ]),
         ),
