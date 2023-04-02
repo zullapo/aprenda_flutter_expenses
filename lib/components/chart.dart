@@ -38,7 +38,7 @@ class Chart extends StatelessWidget {
                 .map((Map<String, Object> t) => ChartBar(
                     label: t['day'] as String,
                     value: t['value'] as double,
-                    percentage: 0))
+                    percentage: 0.3))
                 .toList()),
       ),
     );
