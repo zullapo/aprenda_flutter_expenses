@@ -27,6 +27,13 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get weekTotalValue {
+    return groupedTransactions.fold(0.0,
+        (double previousValue, Map<String, Object> element) {
+      return previousValue + (element['value'] as double);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -38,7 +45,7 @@ class Chart extends StatelessWidget {
                 .map((Map<String, Object> t) => ChartBar(
                     label: t['day'] as String,
                     value: t['value'] as double,
-                    percentage: 0.3))
+                    percentage: (t['value'] as double) / weekTotalValue))
                 .toList()),
       ),
     );
