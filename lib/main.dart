@@ -105,6 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pop(context);
   }
 
+  removeTransaction(String id) {
+    setState(() {
+      transactions.removeWhere((Transaction t) => t.id == id);
+    });
+  }
+
   showTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -117,34 +123,40 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Despesas Pessoais"),
-          actions: [
-            IconButton(
-              onPressed: () {
-                showTransactionFormModal(context);
-              },
-              icon: const Icon(Icons.add),
+      appBar: AppBar(
+        title: const Text("Despesas Pessoais"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showTransactionFormModal(context);
+            },
+            icon: const Icon(Icons.add),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              child: Chart(
+                recentTransactions: recentTransactions,
+              ),
+            ),
+            TransactionList(
+              transactions: transactions,
+              removeTransaction: removeTransaction,
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(
-                child: Chart(recentTransactions: recentTransactions),
-              ),
-              TransactionList(transactions: transactions)
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showTransactionFormModal(context);
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showTransactionFormModal(context);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }
