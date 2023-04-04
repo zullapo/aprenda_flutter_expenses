@@ -5,7 +5,7 @@ class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.addTransaction})
       : super(key: key);
 
-  final void Function(String title, double value) addTransaction;
+  final void Function(String title, double value, DateTime date) addTransaction;
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -22,7 +22,8 @@ class _TransactionFormState extends State<TransactionForm> {
     if (title.isEmpty || value <= 0) {
       return;
     }
-    widget.addTransaction(title, value);
+    widget.addTransaction(
+        title, value, selectedDate != null ? selectedDate! : DateTime.now());
   }
 
   showDatePickerModal() {
