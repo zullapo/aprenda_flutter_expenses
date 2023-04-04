@@ -31,22 +31,48 @@ class _TransactionFormState extends State<TransactionForm> {
         padding: const EdgeInsets.all(10),
         child: Column(children: [
           TextFormField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: "Título")),
+            controller: titleController,
+            decoration: const InputDecoration(labelText: "Título"),
+          ),
           TextFormField(
-              controller: valueController,
-              keyboardType: TextInputType.number,
-              onFieldSubmitted: (_) {
-                submitForm();
-              },
-              decoration: const InputDecoration(labelText: "Valor (R\$)")),
+            controller: valueController,
+            keyboardType: TextInputType.number,
+            onFieldSubmitted: (_) {
+              submitForm();
+            },
+            decoration: const InputDecoration(labelText: "Valor (R\$)"),
+          ),
+          Row(
+            children: [
+              const Text("Nenhuma data selecionada!"),
+              const SizedBox(
+                width: 10,
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Selecionar data",
+                ),
+              ),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(
-                  onPressed: submitForm,
-                  child: const Text("Nova transação",
-                      style: TextStyle(color: Colors.purple)))
+              ElevatedButton(
+                onPressed: submitForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  textStyle: TextStyle(
+                    color: Theme.of(context).textTheme.labelLarge!.color,
+                    fontWeight:
+                        Theme.of(context).textTheme.labelLarge!.fontWeight,
+                  ),
+                ),
+                child: const Text(
+                  "Nova transação",
+                ),
+              )
             ],
           )
         ]),
