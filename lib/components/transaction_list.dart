@@ -13,61 +13,58 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 530,
-      child: transactions.isEmpty
-          ? Column(
-              children: [
-                const SizedBox(height: 20),
-                Text(
-                  "Nenhuma transação cadastrada",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      "assets/images/waiting.png",
-                      fit: BoxFit.cover,
-                    )),
-              ],
-            )
-          : ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                Transaction t = transactions[index];
-                return Card(
-                  elevation: 5,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      foregroundColor: Colors.white,
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: FittedBox(
-                          child: Text("R\$ ${t.value!.toStringAsFixed(0)}"),
-                        ),
+    return transactions.isEmpty
+        ? Column(
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                "Nenhuma transação cadastrada",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    "assets/images/waiting.png",
+                    fit: BoxFit.cover,
+                  )),
+            ],
+          )
+        : ListView.builder(
+            itemCount: transactions.length,
+            itemBuilder: (context, index) {
+              Transaction t = transactions[index];
+              return Card(
+                elevation: 5,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    radius: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: FittedBox(
+                        child: Text("R\$ ${t.value!.toStringAsFixed(0)}"),
                       ),
                     ),
-                    title: Text(
-                      t.title!,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    subtitle: Text(
-                      DateFormat("d MMM y").format(t.date!),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      color: Theme.of(context).colorScheme.error,
-                      onPressed: () => removeTransaction(t.id!),
-                    ),
                   ),
-                );
-              },
-            ),
-    );
+                  title: Text(
+                    t.title!,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  subtitle: Text(
+                    DateFormat("d MMM y").format(t.date!),
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    color: Theme.of(context).colorScheme.error,
+                    onPressed: () => removeTransaction(t.id!),
+                  ),
+                ),
+              );
+            },
+          );
   }
 }
