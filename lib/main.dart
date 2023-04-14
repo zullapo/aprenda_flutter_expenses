@@ -81,6 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get recentTransactions {
     return transactions
         .where(
@@ -133,8 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
+
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final availableHeight =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
+        MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
 
     return Scaffold(
       appBar: appBar,
@@ -142,14 +148,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (isLandscape)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Exibir Gráfico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      _showChart = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            if (_showChart || !isLandscape)
             SizedBox(
-              height: availableHeight * 0.2,
+              height: availableHeight * (isLandscape ? 0.7 : 0.3),
               child: Chart(
                 recentTransactions: recentTransactions,
               ),
             ),
+            if (!_showChart || !isLandscape)
             SizedBox(
-              height: availableHeight * 0.8,
+              height: availableHeight * 0.7,
               child: TransactionList(
                 transactions: transactions,
                 removeTransaction: removeTransaction,

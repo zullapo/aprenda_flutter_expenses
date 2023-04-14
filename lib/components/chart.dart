@@ -36,29 +36,27 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Card(
-        elevation: 6,
-        margin: const EdgeInsets.all(20),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: groupedTransactions
-                  .map(
-                    (Map<String, Object> t) => Flexible(
-                      fit: FlexFit.tight,
-                      child: ChartBar(
-                        label: t['day'] as String,
-                        value: t['value'] as double,
-                        percentage: weekTotalValue > 0
-                            ? ((t['value'] as double) / weekTotalValue)
-                            : 0,
-                      ),
+    return Card(
+      elevation: 6,
+      margin: const EdgeInsets.all(20),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedTransactions
+                .map(
+                  (Map<String, Object> t) => Flexible(
+                    fit: FlexFit.tight,
+                    child: ChartBar(
+                      label: t['day'] as String,
+                      value: t['value'] as double,
+                      percentage: weekTotalValue > 0
+                          ? ((t['value'] as double) / weekTotalValue)
+                          : 0,
                     ),
-                  )
-                  .toList()),
-        ),
+                  ),
+                )
+                .toList()),
       ),
     );
   }
