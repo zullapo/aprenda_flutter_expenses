@@ -38,59 +38,66 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(children: [
-          TextFormField(
-            controller: titleController,
-            decoration: const InputDecoration(labelText: "Título"),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
           ),
-          TextFormField(
-            controller: valueController,
-            keyboardType: TextInputType.number,
-            onFieldSubmitted: (_) {
-              submitForm();
-            },
-            decoration: const InputDecoration(labelText: "Valor (R\$)"),
-          ),
-          Row(
-            children: [
-              Text(selectedDate == null
-                  ? "Nenhuma data selecionada!"
-                  : "Data selecionada: ${DateFormat("dd/MM/y").format(selectedDate!)}"),
-              const SizedBox(
-                width: 10,
-              ),
-              TextButton(
-                onPressed: showDatePickerModal,
-                child: const Text(
-                  "Selecionar data",
+          child: Column(children: [
+            TextFormField(
+              controller: titleController,
+              decoration: const InputDecoration(labelText: "Título"),
+            ),
+            TextFormField(
+              controller: valueController,
+              keyboardType: TextInputType.number,
+              onFieldSubmitted: (_) {
+                submitForm();
+              },
+              decoration: const InputDecoration(labelText: "Valor (R\$)"),
+            ),
+            Row(
+              children: [
+                Text(selectedDate == null
+                    ? "Nenhuma data selecionada!"
+                    : "Data selecionada: ${DateFormat("dd/MM/y").format(selectedDate!)}"),
+                const SizedBox(
+                  width: 10,
                 ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).textTheme.labelLarge!.color,
-                    fontWeight:
-                        Theme.of(context).textTheme.labelLarge!.fontWeight,
+                TextButton(
+                  onPressed: showDatePickerModal,
+                  child: const Text(
+                    "Selecionar data",
                   ),
                 ),
-                child: const Text(
-                  "Nova transação",
-                ),
-              )
-            ],
-          )
-        ]),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: submitForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textStyle: TextStyle(
+                      color: Theme.of(context).textTheme.labelLarge!.color,
+                      fontWeight:
+                          Theme.of(context).textTheme.labelLarge!.fontWeight,
+                    ),
+                  ),
+                  child: const Text(
+                    "Nova transação",
+                  ),
+                )
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }
