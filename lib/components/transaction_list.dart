@@ -14,17 +14,13 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
-        ? LayoutBuilder(
-          builder: (context, constraints) {
+        ? LayoutBuilder(builder: (context, constraints) {
             return Column(
               children: [
                 const SizedBox(height: 20),
                 Text(
                   "Nenhuma transação cadastrada",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -35,16 +31,14 @@ class TransactionList extends StatelessWidget {
                     )),
               ],
             );
-          }
-        )
+          })
         : ListView.builder(
             itemCount: transactions.length,
             itemBuilder: (context, index) {
               Transaction t = transactions[index];
               return Card(
                 elevation: 5,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.primary,
@@ -64,11 +58,38 @@ class TransactionList extends StatelessWidget {
                   subtitle: Text(
                     DateFormat("d MMM y").format(t.date!),
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    color: Theme.of(context).colorScheme.error,
-                    onPressed: () => removeTransaction(t.id!),
-                  ),
+                  trailing: MediaQuery.of(context).size.width > 480
+                      ? SizedBox(
+                          width: 100,
+                          child: InkWell(
+                            onTap: () => removeTransaction(t.id!),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Excluir",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : IconButton(
+                          icon: const Icon(Icons.delete),
+                          color: Theme.of(context).colorScheme.error,
+                          onPressed: () => removeTransaction(t.id!),
+                        ),
                 ),
               );
             },
