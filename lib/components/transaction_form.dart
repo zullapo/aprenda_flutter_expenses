@@ -24,7 +24,10 @@ class _TransactionFormState extends State<TransactionForm> {
       return;
     }
     widget.addTransaction(
-        title, value, selectedDate != null ? selectedDate! : DateTime.now());
+      title,
+      value,
+      selectedDate != null ? selectedDate! : DateTime.now(),
+    );
   }
 
   showDatePickerModal() {
@@ -34,7 +37,9 @@ class _TransactionFormState extends State<TransactionForm> {
       initialDate: now,
       firstDate: DateTime(now.year),
       lastDate: now,
-    ).then((value) => setState(() => selectedDate = value));
+    ).then(
+      (value) => setState(() => selectedDate = value),
+    );
   }
 
   @override

@@ -63,10 +63,10 @@ class TransactionList extends StatelessWidget {
                           width: 100,
                           child: InkWell(
                             onTap: () => removeTransaction(t.id!),
-                            child: Row(
+                            child: const Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.delete,
                                   color: Colors.red,
