@@ -125,6 +125,10 @@ linux/
 # Web
 web/
 
+# Test
+
+test/
+
 # Coverage
 coverage/
 
