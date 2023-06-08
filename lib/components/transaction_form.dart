@@ -1,7 +1,7 @@
 import 'package:expenses/components/adaptive_button.dart';
+import 'package:expenses/components/adaptive_datepicker.dart';
 import 'package:expenses/components/adaptive_textformfield.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.addTransaction})
@@ -68,21 +68,13 @@ class _TransactionFormState extends State<TransactionForm> {
               },
               label: "Valor (R\$)",
             ),
-            Row(
-              children: [
-                Text(selectedDate == null
-                    ? "Nenhuma data selecionada!"
-                    : "Data selecionada: ${DateFormat("dd/MM/y").format(selectedDate!)}"),
-                const SizedBox(
-                  width: 10,
-                ),
-                TextButton(
-                  onPressed: showDatePickerModal,
-                  child: const Text(
-                    "Selecionar data",
-                  ),
-                ),
-              ],
+            AdaptativeDatePicker(
+              selectedDate: selectedDate,
+              onDateChange: (newDate) {
+                setState(() {
+                  selectedDate = newDate;
+                });
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
