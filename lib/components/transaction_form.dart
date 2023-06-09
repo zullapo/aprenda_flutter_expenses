@@ -79,7 +79,10 @@ class _TransactionFormState extends State<TransactionForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                AdaptiveButton(label: "Nova transação", onPressed: submitForm),
+                AdaptiveButton(
+                  label: "Nova transação",
+                  onPressed: submitForm,
+                ),
               ],
             )
           ]),
