@@ -6,10 +6,13 @@ import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'components/chart.dart';
 
-void main() => runApp(const ExpensesApp());
+void main() => initializeDateFormatting('pt_BR', null).then((_) {
+      runApp(const ExpensesApp());
+    });
 
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({Key? key}) : super(key: key);

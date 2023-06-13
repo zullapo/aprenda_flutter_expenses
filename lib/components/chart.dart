@@ -11,8 +11,8 @@ class Chart extends StatelessWidget {
 
   List<Map<String, Object>> get groupedTransactions {
     return List.generate(7, (index) {
-      DateTime weekDay = DateTime.now().subtract(Duration(days: index));
-      String dayLetter = DateFormat.E().format(weekDay)[0];
+      DateTime weekDay = DateTime.now().add(Duration(days: index));
+      String dayLetter = DateFormat.E('pt-BR').format(weekDay)[0].toUpperCase();
       double sumTransactionValue = 0;
       for (Transaction recentTransaction in recentTransactions) {
         bool sameDay = recentTransaction.date?.day == weekDay.day;
